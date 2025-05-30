@@ -93,8 +93,37 @@ function Exam() {
     }
   }
 
+  // question navigation buttons
+  function renderJumpButtons() {
+    return (
+      <div style={{ margin: '20px 0', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+        {questions.map((q, idx) => (
+          <button
+            key={q.id}
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+              background: idx === current ? '#007bff' : (answers[q.id] !== undefined ? '#d4edda' : '#f8d7da'),
+              color: idx === current ? '#fff' : '#222',
+              border: '1px solid #ccc',
+              fontWeight: idx === current ? 700 : 400,
+              cursor: 'pointer',
+              outline: 'none',
+            }}
+            onClick={() => setCurrent(idx)}
+            aria-label={`Go to question ${idx + 1}`}
+          >
+            {idx + 1}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div style={{ maxWidth: '600px', margin: '30px auto', fontFamily: 'Arial, sans-serif' }}>
+      {renderJumpButtons()}
       {renderQuestion()}
       <div style={{ marginTop: '20px' }}>
         <button
