@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import questions from '../data/react_questions.json';
 import './Exam.css';
+import Timer from './Timer';
 
 function Exam() {
   const [current, setCurrent] = useState(0);
@@ -121,32 +122,34 @@ function Exam() {
     );
   }
 
-  return (
-    <div className="exam-container">
-      {renderJumpButtons()}
-      {renderQuestion()}
-      <div className="navigation-buttons">
-        <button
-          onClick={() => setCurrent((prev) => Math.max(prev - 1, 0))}
-          disabled={current === 0}
-        >
-          Previous
+return (
+  <div className="exam-container">
+    <Timer duration={30} onTimeUp={handleSubmit} />
+
+    {renderJumpButtons()}
+    {renderQuestion()}
+    <div className="navigation-buttons">
+      <button
+        onClick={() => setCurrent((prev) => Math.max(prev - 1, 0))}
+        disabled={current === 0}
+      >
+        Previous
+      </button>
+      {current < questions.length - 1 ? (
+        <button onClick={() => setCurrent((prev) => Math.min(prev + 1, questions.length - 1))}>
+          Next
         </button>
-        {current < questions.length - 1 ? (
-          <button onClick={() => setCurrent((prev) => Math.min(prev + 1, questions.length - 1))}>
-            Next
-          </button>
-        ) : (
-          <button onClick={handleSubmit} disabled={Object.keys(answers).length < questions.length}>
-            Submit
-          </button>
-        )}
-      </div>
-      <p className="progress-text">
-        Question {current + 1} of {questions.length}
-      </p>
+      ) : (
+        <button onClick={handleSubmit} disabled={Object.keys(answers).length < questions.length}>
+          Submit
+        </button>
+      )}
     </div>
-  );
+    <p className="progress-text">
+      Question {current + 1} of {questions.length}
+    </p>
+  </div>
+);
 }
 
 export default Exam;
