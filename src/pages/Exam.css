@@ -1,5 +1,5 @@
 .exam-container {
-  max-width: 650px;
+  max-width: 800px;
   margin: 40px auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #ffffff, #f3f6fb);
@@ -9,11 +9,62 @@
   transition: all 0.3s ease;
 }
 
+.exam-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.exam-title {
+  margin: 0;
+  color: #212529;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.score-display {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  background-color: #e8f4fd;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid #cce5ff;
+}
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.minimal-timer {
+  font-size: 0.9rem;
+  color: #6c757d;
+  background: #f8f9fa;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
 .question-text {
   font-size: 1.4rem;
   margin-bottom: 20px;
   color: #212529;
   font-weight: 600;
+}
+
+.choices {
+  margin-top: 15px;
 }
 
 .choices label {
@@ -40,7 +91,12 @@
   font-size: 1rem;
 }
 
-input[type="text"] {
+.binary-choices {
+  display: flex;
+  gap: 15px;
+}
+
+.identification-input {
   width: 100%;
   padding: 10px 14px;
   border-radius: 8px;
@@ -50,7 +106,7 @@ input[type="text"] {
   transition: border-color 0.3s ease;
 }
 
-input[type="text"]:focus {
+.identification-input:focus {
   border-color: #007bff;
   outline: none;
 }
