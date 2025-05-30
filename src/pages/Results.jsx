@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import questions from '../data/react_questions.json';
+import './Results.css';
 
 function Results() {
   const location = useLocation();
@@ -13,13 +14,13 @@ function Results() {
   }
 
   return (
-    <div style={{ maxWidth: '700px', margin: '30px auto', fontFamily: 'Arial, sans-serif' }}>
+    <div className="results-container">
       <h2>Exam Complete!</h2>
       <p>
         Your score is {score} out of {questions.length}.
       </p>
       <h3>Breakdown:</h3>
-      <ol>
+      <ol className="results-breakdown">
         {questions.map((q) => {
           const userAns = answers[q.id];
           const isCorrect =
@@ -29,7 +30,9 @@ function Results() {
 
           let userDisplay = '';
           let correctDisplay = '';
-          let highlightStyle = {};
+          let itemClass = 'result-item';
+          if (isCorrect) itemClass += ' correct';
+          else itemClass += ' incorrect';
 
           if (q.type === 'multiple') {
             userDisplay = userAns ? getChoiceValue(q, userAns) : 'No answer';
@@ -42,21 +45,15 @@ function Results() {
             correctDisplay = q.answer;
           }
 
-          if (isCorrect) {
-            highlightStyle = { background: '#d4edda' }; // greenish for correct
-          } else {
-            highlightStyle = { background: '#f8d7da' }; // reddish for incorrect
-          }
-
           return (
-            <li key={q.id} style={{ marginBottom: '18px', padding: '10px', border: '1px solid #ccc', borderRadius: 6, ...highlightStyle }}>
-              <div style={{ fontWeight: 600 }}>{q.question}</div>
-              <div>
+            <li key={q.id} className={itemClass}>
+              <div className="result-question">{q.question}</div>
+              <div className="result-your-answer">
                 <span>Your answer: </span>
                 <span style={{ fontWeight: isCorrect ? 600 : 400 }}>{userDisplay}</span>
               </div>
               {!isCorrect && (
-                <div>
+                <div className="result-correct-answer">
                   <span>Correct answer: </span>
                   <span style={{ fontWeight: 600 }}>{correctDisplay}</span>
                 </div>
