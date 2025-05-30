@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import questions from '../data/react_questions.json';
+import './Exam.css';
 
 function Exam() {
   const [current, setCurrent] = useState(0);
@@ -35,53 +36,58 @@ function Exam() {
       case 'multiple':
         return (
           <div>
-            <h3>{currentQuestion.question}</h3>
-            {currentQuestion.choices.map((choice) => (
-              <label key={choice.id} style={{ display: 'block', marginBottom: '5px' }}>
-                <input
-                  type="radio"
-                  name={`q${currentQuestion.id}`}
-                  value={choice.id}
-                  checked={answers[currentQuestion.id] === choice.id}
-                  onChange={() => handleAnswerChange(choice.id)}
-                />{' '}
-                {choice.value}
-              </label>
-            ))}
+            <h3 className="question-text">{currentQuestion.question}</h3>
+            <div className="choices">
+              {currentQuestion.choices.map((choice) => (
+                <label key={choice.id}>
+                  <input
+                    type="radio"
+                    name={`q${currentQuestion.id}`}
+                    value={choice.id}
+                    checked={answers[currentQuestion.id] === choice.id}
+                    onChange={() => handleAnswerChange(choice.id)}
+                  />
+                  {choice.value}
+                </label>
+              ))}
+            </div>
           </div>
         );
       case 'binary':
         return (
           <div>
-            <h3>{currentQuestion.question}</h3>
-            <label style={{ marginRight: '10px' }}>
-              <input
-                type="radio"
-                name={`q${currentQuestion.id}`}
-                value="true"
-                checked={answers[currentQuestion.id] === true}
-                onChange={() => handleAnswerChange(true)}
-              />{' '}
-              True
-            </label>
-            <label>
-              <input
-                type="radio"
-                name={`q${currentQuestion.id}`}
-                value="false"
-                checked={answers[currentQuestion.id] === false}
-                onChange={() => handleAnswerChange(false)}
-              />{' '}
-              False
-            </label>
+            <h3 className="question-text">{currentQuestion.question}</h3>
+            <div className="choices">
+              <label>
+                <input
+                  type="radio"
+                  name={`q${currentQuestion.id}`}
+                  value="true"
+                  checked={answers[currentQuestion.id] === true}
+                  onChange={() => handleAnswerChange(true)}
+                />
+                True
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name={`q${currentQuestion.id}`}
+                  value="false"
+                  checked={answers[currentQuestion.id] === false}
+                  onChange={() => handleAnswerChange(false)}
+                />
+                False
+              </label>
+            </div>
           </div>
         );
       case 'identification':
         return (
           <div>
-            <h3>{currentQuestion.question}</h3>
+            <h3 className="question-text">{currentQuestion.question}</h3>
             <input
               type="text"
+              className="identification-input"
               value={answers[currentQuestion.id] || ''}
               onChange={(e) => handleAnswerChange(e.target.value)}
               placeholder="Type your answer here"
@@ -93,43 +99,36 @@ function Exam() {
     }
   }
 
-  // question navigation buttons
   function renderJumpButtons() {
     return (
-      <div style={{ margin: '20px 0', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-        {questions.map((q, idx) => (
-          <button
-            key={q.id}
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: '50%',
-              background: idx === current ? '#007bff' : (answers[q.id] !== undefined ? '#d4edda' : '#f8d7da'),
-              color: idx === current ? '#fff' : '#222',
-              border: '1px solid #ccc',
-              fontWeight: idx === current ? 700 : 400,
-              cursor: 'pointer',
-              outline: 'none',
-            }}
-            onClick={() => setCurrent(idx)}
-            aria-label={`Go to question ${idx + 1}`}
-          >
-            {idx + 1}
-          </button>
-        ))}
+      <div className="jump-buttons">
+        {questions.map((q, idx) => {
+          const isActive = idx === current;
+          const isAnswered = answers[q.id] !== undefined;
+          const buttonClass = isActive ? 'active' : isAnswered ? 'answered' : '';
+          return (
+            <button
+              key={q.id}
+              className={buttonClass}
+              onClick={() => setCurrent(idx)}
+              aria-label={`Go to question ${idx + 1}`}
+            >
+              {idx + 1}
+            </button>
+          );
+        })}
       </div>
     );
   }
 
   return (
-    <div style={{ maxWidth: '600px', margin: '30px auto', fontFamily: 'Arial, sans-serif' }}>
+    <div className="exam-container">
       {renderJumpButtons()}
       {renderQuestion()}
-      <div style={{ marginTop: '20px' }}>
+      <div className="navigation-buttons">
         <button
           onClick={() => setCurrent((prev) => Math.max(prev - 1, 0))}
           disabled={current === 0}
-          style={{ marginRight: '10px' }}
         >
           Previous
         </button>
@@ -143,7 +142,7 @@ function Exam() {
           </button>
         )}
       </div>
-      <p style={{ marginTop: '10px' }}>
+      <p className="progress-text">
         Question {current + 1} of {questions.length}
       </p>
     </div>

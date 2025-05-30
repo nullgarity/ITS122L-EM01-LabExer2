@@ -1,0 +1,132 @@
+.exam-container {
+  max-width: 650px;
+  margin: 40px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #ffffff, #f3f6fb);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.question-text {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #212529;
+  font-weight: 600;
+}
+
+.choices label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 1.05rem;
+  color: #333;
+  background-color: #f1f5ff;
+  border: 1px solid #d0d9ec;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.choices label:hover {
+  background-color: #e0ebff;
+  border-color: #aac7ff;
+}
+
+.choices input[type="radio"],
+.choices input[type="text"] {
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccd5e0;
+  font-size: 1rem;
+  margin-top: 8px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.navigation-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.navigation-buttons button {
+  background: linear-gradient(to right, #007bff, #0056b3);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 6px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.navigation-buttons button:disabled {
+  background: #b0b0b0;
+  cursor: not-allowed;
+}
+
+.navigation-buttons button:hover:not(:disabled) {
+  background: linear-gradient(to right, #0056b3, #004099);
+}
+
+.jump-buttons {
+  margin-bottom: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.jump-buttons button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background-color: #eef2f8;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+.jump-buttons button:hover {
+  background-color: #cddffb;
+}
+
+.jump-buttons button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.jump-buttons button.answered {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.jump-buttons button.unanswered {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.progress-text {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: #666;
+  text-align: center;
+}
