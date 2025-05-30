@@ -100,29 +100,42 @@ function Exam() {
   }
 
   function renderJumpButtons() {
-    return (
-      <div className="jump-buttons">
-        {questions.map((q, idx) => {
-          const isActive = idx === current;
+    // Split questions into two rows of 10
+    const row1 = questions.slice(0, 10);
+    const row2 = questions.slice(10, 20);
+
+    const renderRow = (row, offset) => (
+      <div className="jump-buttons-row">
+        {row.map((q, idx) => {
+          const index = offset + idx;
+          const isActive = index === current;
           const isAnswered = answers[q.id] !== undefined;
           const buttonClass = isActive ? 'active' : isAnswered ? 'answered' : '';
           return (
             <button
               key={q.id}
               className={buttonClass}
-              onClick={() => setCurrent(idx)}
-              aria-label={`Go to question ${idx + 1}`}
+              onClick={() => setCurrent(index)}
+              aria-label={`Go to question ${index + 1}`}
             >
-              {idx + 1}
+              {index + 1}
             </button>
           );
         })}
+      </div>
+    );
+
+    return (
+      <div className="jump-buttons">
+        {renderRow(row1, 0)}
+        {renderRow(row2, 10)}
       </div>
     );
   }
 
   return (
     <div className="exam-container">
+      <h1 className="quiz-title">Quiz 1</h1>
       {renderJumpButtons()}
       {renderQuestion()}
       <div className="navigation-buttons">

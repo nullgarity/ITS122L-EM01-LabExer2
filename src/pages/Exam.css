@@ -63,7 +63,7 @@ input[type="text"]:focus {
 }
 
 .navigation-buttons button {
-  background: linear-gradient(to right, #007bff, #0056b3);
+  background: #007bff;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -87,9 +87,18 @@ input[type="text"]:focus {
 .jump-buttons {
   margin-bottom: 25px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
   justify-content: center;
+  align-items: center;
+}
+
+.jump-buttons-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 4px;
 }
 
 .jump-buttons button {
